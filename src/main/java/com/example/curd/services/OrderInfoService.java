@@ -1,30 +1,15 @@
 package com.example.curd.services;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import com.example.curd.models.OrderInfo;
 
-@Service
-public class OrderInfoService implements IOrderInfoService{
-
-    @Override
-    public OrderInfo calculateResult(OrderInfo orderInfo) {
-        float pipValue = orderInfo.getPipValuePerLot().getPipValue();
-		float amoutToRisk = orderInfo.getAmoutToRisk();
-		String quoteCurrency = orderInfo.getPipValuePerLot().getCurrencyPair().split("/")[1];
-		int size = 0;
-		if ("JPY".equals(quoteCurrency)) {
-			size = 100;
-		} else {
-			size = 10000;
-		}
-		float pip = Math.abs(orderInfo.getEntry() - orderInfo.getStopLoss())*size;
-		float lotTarget= amoutToRisk/pip/pipValue;
-
-		orderInfo.setPipValue(pipValue);
-		orderInfo.setPip(pip);
-		orderInfo.setLot(lotTarget);
-		return orderInfo;
-    }
-    
+public interface OrderInfoService {
+    public List<OrderInfo> findAll();
+	public OrderInfo findById(final Long id);
+	public void save(final OrderInfo orderInfo);
+	public void update(final OrderInfo orderInfo);
+	public void delete(final Long id);
+    public OrderInfo calculateResult(OrderInfo orderInfo);
+	public boolean existsById(Long id);
 }

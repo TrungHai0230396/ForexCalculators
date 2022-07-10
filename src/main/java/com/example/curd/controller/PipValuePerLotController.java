@@ -1,6 +1,6 @@
 package com.example.curd.controller;
 import  com.example.curd.models.PipValuePerLot;
-import com.example.curd.repositories.PipValuePerLotRepository;
+import com.example.curd.services.PipValuePerLotService;
 
 import java.util.List;
 
@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "http://localhost:4201", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(path = "api/PipValuePerLot")
 public class PipValuePerLotController {
     @Autowired
-    private PipValuePerLotRepository repository;
+    private PipValuePerLotService pipValuePerLotService;
 
     @GetMapping("")
     //this request is: http://localhost:8005/api/PipValuePerLot
     List<PipValuePerLot> getAllPipValuePerLots() {
-       return repository.findAll();
+       return pipValuePerLotService.findAll();
     }
 
 }

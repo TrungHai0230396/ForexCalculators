@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -29,12 +30,15 @@ public class OrderInfo {
     private PipValuePerLot pipValuePerLot;
 
     @Column(name = "stop_loss", nullable = false)
+    @Min(value = 0, message = "The stop loss must be positive")
     private float stopLoss;
 
     @Column(name = "entry", nullable = false)
+    @Min(value = 0, message = "The entry must be positive")
     private float entry;
 
     @Column(name = "take_profit")
+    @Min(value = 0, message = "The take profit must be positive")
     private Float takeProfit;
 
     @Column(name = "lot", nullable = false)
